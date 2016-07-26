@@ -53,7 +53,7 @@ fancy_echo "Installing Essential NPM Packages ..."
 fancy_echo "Installing Casks"
   brew cask install caskroom/fonts/font-hack caskroom/fonts/font-source-code-pro
   brew cask install qlmarkdown qlcolorcode qlstephen quicklook-json qlimagesize
-  brew cask install google-chrome atom iterm2 spotify sonos
+  brew cask install google-chrome atom iterm2 spotify sonos 1password alfred duet slack
 
 # fancy_echo "Cloning and installing dotfiles ..."
 #  git clone git@github.com:denexp/dotfiles.git ~/.dotfiles
