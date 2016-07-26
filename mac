@@ -1,6 +1,6 @@
-#!/usr/bin/env zsh
+#!/bin/bash -e
 
-# Welcome to Matt's laptop script! Forked from thoughbot.
+# Welcome to Genexp’s laptop script! Forked from Matt Banks, forked from Thoughtbot
 # Be prepared to turn your laptop (or desktop, no haters here)
 # into an awesome development machine.
 
@@ -9,16 +9,11 @@ trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 set -e
 
 # Make sure we have Xcode command line tools
-xcode-select --install
+# xcode-select --install
 
 # Create ~/.bin if it doesn't exist
 if [[ ! -d "$HOME/.bin/" ]]; then
   mkdir "$HOME/.bin"
-fi
-
-# Create ~/.zshrc if it doesn't exist
-if [ ! -f "$HOME/.zshrc" ]; then
-  touch $HOME/.zshrc
 fi
 
 # Create ~/Code if it doesn't exist
@@ -29,15 +24,6 @@ fi
 fancy_echo() {
   printf "\n%b\n" "$1"
 }
-
-# Create shell to zsh
-fancy_echo "Changing your shell to zsh ..."
-  chsh -s $(which zsh)
-
-if [[ -f /etc/zshenv ]]; then
-  fancy_echo "Fixing OSX zsh environment bug ..."
-    sudo mv /etc/{zshenv,zshrc}
-fi
 
 echo "Checking for SSH key, generating one if it doesn't exist ..."
   [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
@@ -53,29 +39,10 @@ fancy_echo "Updating Homebrew formulas ..."
   brew update
 
 fancy_echo "Installing homebrew packages ..."
-  brew install git z zsh-syntax-highlighting awscli heroku-toolbest go python
+  brew install git awscli heroku-toolbelt go python ruby node
 
-fancy_echo "Installing docker packages ..."
-  brew install docker docker-compose docker-machine docker-swarm
-
-fancy_echo "Installing Node via n with latest and lts ..."
-  brew install n
-  n lts
-  n latest
-
-fancy_echo "Installing rbenv, to change Ruby versions ..."
-  brew install rbenv
-  eval "$(rbenv init -)"
-
-fancy_echo "Installing ruby-build, to install Rubies ..."
-  brew install ruby-build
-
-fancy_echo "Installing Ruby 2.3.0 ..."
-  rbenv install 2.3.0
-
-fancy_echo "Setting Ruby 2.3.0 as global default Ruby ..."
-  rbenv global 2.3.0
-  rbenv rehash
+fancy_echo "Installing docker and terraform packages ..."
+  brew install docker docker-compose docker-machine docker-swarm terraform
 
 fancy_echo "Updating to latest Rubygems version ..."
   gem update --system
@@ -86,23 +53,16 @@ fancy_echo "Installing Essential NPM Packages ..."
 fancy_echo "Installing Casks"
   brew cask install caskroom/fonts/font-hack caskroom/fonts/font-source-code-pro
   brew cask install qlmarkdown qlcolorcode qlstephen quicklook-json qlimagesize
-  brew cask install virtualbox vagrant
+  brew cask install google-chrome atom iterm2 spotify sonos
 
-fancy_echo "Cloning VVV dev box, install vv"
-  git clone git@github.com:mattbanks/VVV.git ~/vvv
-  brew install bradp/vv/vv
+# fancy_echo "Cloning and installing dotfiles ..."
+#  git clone git@github.com:denexp/dotfiles.git ~/.dotfiles
+#  cd ~/.dotfiles
+#  script/bootstrap
 
-# Get rid of zshrc and move on to the dotfiles
-rm ~/.zshrc
+# fancy_echo "Installing Atom packages"
+#  apm stars --install
 
-fancy_echo "Cloning and installing dotfiles ..."
-  git clone git@github.com:mattbanks/dotfiles.git ~/.dotfiles
-  cd ~/.dotfiles
-  script/bootstrap
-
-fancy_echo "Installing Atom packages"
-  apm stars --install
-
-fancy_echo "Installing Xcode color scheme"
-  cd ~/.dotfiles
-  xcode/setup
+# fancy_echo "Installing Xcode color scheme"
+#   cd ~/.dotfiles
+#  xcode/setup
