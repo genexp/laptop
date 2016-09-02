@@ -39,7 +39,7 @@ fancy_echo "Updating Homebrew formulas ..."
   brew update
 
 fancy_echo "Installing homebrew packages ..."
-  brew install git awscli heroku-toolbelt go python ruby node
+  brew install git awscli heroku-toolbelt go python ruby node tmux
 
 fancy_echo "Installing docker and terraform packages ..."
   brew install docker docker-compose docker-machine docker-swarm terraform
@@ -54,6 +54,24 @@ fancy_echo "Installing Casks"
   brew cask install caskroom/fonts/font-hack caskroom/fonts/font-source-code-pro
   brew cask install qlmarkdown qlcolorcode qlstephen quicklook-json qlimagesize
   brew cask install google-chrome atom iterm2 spotify sonos 1password alfred duet slack
+
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+cat << EOF > ~/.tmux.conf
+# Put this at the bottom of .tmux.conf:
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com/user/plugin'
+# set -g @plugin 'git@bitbucket.com/user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+EOF
 
 # fancy_echo "Cloning and installing dotfiles ..."
 #  git clone git@github.com:denexp/dotfiles.git ~/.dotfiles
