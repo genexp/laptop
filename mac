@@ -39,10 +39,10 @@ fancy_echo "Updating Homebrew formulas ..."
   brew update
 
 fancy_echo "Installing homebrew packages ..."
-  brew install git awscli heroku-toolbelt go python ruby node tmux
+  brew install git awscli heroku-toolbelt go python ruby node yadm tmux 2> /dev/null
 
 fancy_echo "Installing docker and terraform packages ..."
-  brew install docker docker-compose docker-machine docker-swarm terraform
+  brew install docker docker-compose docker-machine docker-swarm terraform 2> /dev/null
 
 fancy_echo "Updating to latest Rubygems version ..."
   gem update --system
@@ -51,11 +51,11 @@ fancy_echo "Installing Essential NPM Packages ..."
   npm install -g eslint gulp jshint node-inspector npm-check-updates pure-prompt xo
 
 fancy_echo "Installing Casks"
-  brew cask install caskroom/fonts/font-hack caskroom/fonts/font-source-code-pro
+  brew tap caskroom/cask
   brew cask install qlmarkdown qlcolorcode qlstephen quicklook-json qlimagesize
   brew cask install google-chrome atom iterm2 spotify sonos 1password alfred duet slack
 
-
+mkdir -p ~/.tmux/plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 cat << EOF > ~/.tmux.conf
 # Put this at the bottom of .tmux.conf:
@@ -78,8 +78,8 @@ EOF
 #  cd ~/.dotfiles
 #  script/bootstrap
 
-# fancy_echo "Installing Atom packages"
-#  apm stars --install
+fancy_echo "Installing Atom packages"
+ apm stars --install
 
 # fancy_echo "Installing Xcode color scheme"
 #   cd ~/.dotfiles
